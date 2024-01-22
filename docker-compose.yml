@@ -1,0 +1,32 @@
+x-common-nginx:
+  &common-nginx
+  ports:
+    - 8001:80
+
+services:
+  nginx:
+    <<: *common-nginx
+    profiles:
+      - prod
+    build: .
+    volumes:
+      - ./data:/var/www/data:ro
+  nginx-dev:
+    <<: *common-nginx
+    profiles:
+      - dev
+    image: nginx
+    volumes:
+      - ./data:/var/www/data:ro
+      - ./nginx/dev.conf.template:/etc/nginx/templates/default.conf.template:ro
+
+  vite:
+    build:
+      target: frontend
+    volumes:
+      - ./src:/app/src
+      - ./config.js:/app/public/config.js
+    ports:
+      - "3000:3000"
+    profiles:
+      - dev
