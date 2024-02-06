@@ -4,5 +4,5 @@ services:
   cli:
     build: .
     volumes:
-      - ../data:/app/data
+      - ../data:/data
       - ./src:/app/src

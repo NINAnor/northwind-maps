@@ -30,3 +30,12 @@ services:
       - "3000:3000"
     profiles:
       - dev
+
+  titiler:
+    build: ./titiler
+    ports:
+      - "5002:8080"
+    volumes:
+      - ./titiler/src:/app/src
+    environment:
+      - TITILER_API_ROOT_PATH=tiler

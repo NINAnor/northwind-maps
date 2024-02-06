@@ -4,8 +4,16 @@ server {
     root   /var/www;
     absolute_redirect off;
 
-    location ~* ^/data/(.+)/(.+)$ {
+    location ~* ^/data/(.+) {
         try_files $uri $uri/;
+    }
+
+    location /tiler/ {
+        proxy_pass http://titiler:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
     }
 
     location / {

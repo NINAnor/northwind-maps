@@ -1,0 +1,17 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "Niccolò Cantù", email = "niccolo.cantu@nina.no"},
+]
+dependencies = [
+    "titiler-application>=0.17.0",
+    "uvicorn>=0.27.0.post1",
+    "matplotlib>=3.8.2",
+    "titiler-extensions[cogeo]>=0.17.0",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+

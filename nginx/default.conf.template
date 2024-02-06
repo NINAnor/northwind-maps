@@ -3,7 +3,7 @@ server {
     server_name  localhost;
     root   /var/www;
 
-    location ~* ^/data/(.+)/(.+)$ {
+    location ~* ^/data/(.+) {
         try_files $uri $uri/;
     }
 

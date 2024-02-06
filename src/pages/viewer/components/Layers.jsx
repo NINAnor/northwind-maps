@@ -18,7 +18,12 @@ function Layer({ node, style, dragHandle }) {
   }
 
   const legend = useMemo(() => {
-    return layer ? LegendSymbol(layer, map) : LegendSymbol(lazy.layers[node.data.id], map);
+    try {
+      return layer ? LegendSymbol(layer, map) : LegendSymbol(lazy.layers[node.data.id], map);
+    } catch(e) {
+      console.log(e);
+      return null;
+    }
   }, [layer, lazy])
 
   return (
