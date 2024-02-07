@@ -16,12 +16,14 @@ jobs:
       matrix:
         include:
           - context: .
-            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-nginx
+            image: ${{ env.REGISTRY }}/${{ github.repository }}-nginx
           - context: ./titiler
-            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-titiler
+            image: ${{ env.REGISTRY }}/${{ github.repository }}-titiler
+  
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
