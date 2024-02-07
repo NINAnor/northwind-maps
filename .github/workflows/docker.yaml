@@ -2,7 +2,7 @@ name: Docker
 on:
   push:
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
 
 env:
   REGISTRY: ghcr.io
@@ -11,6 +11,14 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - context: .
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-nginx
+          - context: ./titiler
+            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-titiler
     permissions:
       contents: read
       packages: write
@@ -28,14 +36,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ matrix.image }}
           tags: |
             type=ref,event=branch
             type=sha
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ${{ matrix.context }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
