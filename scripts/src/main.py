@@ -50,12 +50,12 @@ def to_hierarchy(key_map, prefix, parent_key="", downloads={}, zips={}):
         name = k
         layer = {
             "id": id,
-            "name": name,
+            "name": name.replace('_', ' ').capitalize(),
         }
         if id in downloads:
             layer['download'] = downloads[id]
         if id in zips:
-            layer['download'] = f'{prefix}{zips[id]}'
+            layer['download'] = str(zips[id])
         if key_map[k]:
             layer['children'] = to_hierarchy(key_map[k], parent_key=id, downloads=downloads, zips=zips, prefix=prefix)
 
@@ -107,7 +107,7 @@ def generate_files(cog_directory, colormap_file, output, tiles_base_url, prefix,
                     f"/tiler/tiles/WebMercatorQuad/{{z}}/{{x}}/{{y}}@1x?url={urllib.parse.quote_plus(tiles_base_url)}{urllib.parse.quote_plus(prefix)}{cog_path.name}&bidx=1{color}",
                 ]
             }
-            DOWNLOADS[name] = f"{prefix}/{filepath.name}"
+            DOWNLOADS[name] = f"{prefix}{filepath.name}"
     
     template = env.get_template("style.json.tpl")
     
