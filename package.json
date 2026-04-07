@@ -19,7 +19,7 @@
     "events": "^3.3.0",
     "fast-png": "^6.2.0",
     "geotiff": "^2.1.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "maplibre-gl": "^3.6.2",
     "pmtiles": "^2.11.0",
     "react": "^18.2.0",
